@@ -33,6 +33,8 @@ const listaCarrito = document.getElementById("lista-carrito");
 
 const vaciarCarrito = document.getElementById("vaciar-carrito");
 
+const finalizarCompra = document.getElementById("finalizar-compra");
+
 let carrito = [];
 
 function agregarAlCarrito(id, nombre, precio) {
@@ -49,6 +51,8 @@ function agregarAlCarrito(id, nombre, precio) {
     carrito.push(producto);
   }
   mostrarCarrito();
+  let productosAAlmacenar = JSON.stringify(carrito);
+  localStorage.setItem("producto", productosAAlmacenar);
 }
 
 function mostrarCarrito() {
@@ -85,13 +89,26 @@ function mostrarTotal() {
   for (let i = 0; i < carrito.length; i++) {
     total += carrito[i].precio * carrito[i].cantidad;
   }
-  totalCarrito.innerText = `$${total} \n\n OPCIONES DE PAGO: \n\nTarjeta de credito - 3 cuotas sin interes de: $${parseInt(
-    total / 3
-  )} \n\n Tarjeta de credito - 6 cuotas sin interes de: $${parseInt(
-    total / 6
-  )} \n\n Efectivo en la tienda (10% descuento): $${parseInt(
-    total - total * 0.1
-  )} `;
+  totalCarrito.innerText = total;
+  const botonMediosDePago = document.getElementById("medios-de-pago");
+  botonMediosDePago.addEventListener("click", mostrarInfoMediosDePago);
+  function mostrarInfoMediosDePago() {
+    const informacionMediosDePago = document.getElementById(
+      "mostrar-medios-de-pago"
+    );
+    informacionMediosDePago.innerText = `OPCIONES DE PAGO: 
+    \n\nTarjeta de credito - 3 cuotas sin interes de: $${parseInt(total / 3)} 
+    \n\n Tarjeta de credito - 6 cuotas sin interes de: $${parseInt(total / 6)} 
+    \n\n Efectivo en la tienda (10% descuento): $${parseInt(
+      total - total * 0.1
+    )}`;
+  }
 }
+
+finalizarCompra.addEventListener("click", () => {
+  alert(
+    "Su compra ha sido exitosa, le enviaremos la factura a su mail lo mas pronto posible, muchas gracias!"
+  );
+});
 
 mostrarProductos();
