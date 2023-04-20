@@ -4,13 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
-    <h1>
-      Hola! gracias por visitar nuestra pagina, a continuacion te muestro
-      nuestro catalogo de instrumentos musicales
-    </h1>
+    <header>
+      
+      <h1>
+        Hola! gracias por visitar nuestra pagina, a continuacion te muestro
+        nuestro catalogo de instrumentos musicales
+      </h1>
+    </header>
+    <div class="hero">
     <div id="productos">
       <h2>Productos disponibles</h2>
       <ul id="lista-productos"></ul>
@@ -21,11 +26,15 @@
       <p>
         <b>Total: <span id="total-carrito"></span></b>
       </p>
-      <button id="medios-de-pago"> Formas de pago (presionar nuevamente para actualizar)</button>
+      <button id="medios-de-pago">
+        Medios de pago
+      </button>
       <p id="mostrar-medios-de-pago"></p>
       <button id="vaciar-carrito">Vaciar carrito</button>
-    <button id="finalizar-compra">Finalizar compra</button>
+      <button id="finalizar-compra">Finalizar compra</button>
     </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="miarchivo.js"></script>
   </body>
 </html>

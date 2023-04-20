@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header {
+  background-color: gray;
+  margin: 0;
+  padding: 30px;
+}
+
+header h1 {
+  color: white;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+}
+
+#productos {
+  width: 70%;
+  height: 100%;
+}
+
+div h2 {
+  text-align: center;
+  padding: 30px;
+}
+
+#lista-productos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#lista-productos li {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  margin: 40px;
+  list-style: none;
+  border: solid gray;
+  padding: 20px;
+}
+
+#carrito {
+  width: 30%;
+  border-left: solid gray;
+  padding-left: 30px;
+}
+
+#lista-carrito li {
+  margin: 40px;
+  list-style:circle;
+}
+
+button {
+  margin: 5px;
+}
+
+#imagen-instrumento {
+  height: 90px;
+  width: 90px;
+  ;
+}

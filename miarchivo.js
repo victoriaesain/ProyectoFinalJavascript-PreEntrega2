@@ -18,6 +18,7 @@ function mostrarProductos() {
     const li = document.createElement("li");
     li.innerHTML = `
         <p>${producto.nombre} - $${producto.precio}</p>
+        <img src= "./imagenes/inst${producto.id}.jpg" id ="imagen-instrumento" alt="instrumento musical">
       `;
     const boton = document.createElement("button");
     boton.innerText = "Agregar al carrito";
@@ -79,9 +80,26 @@ function eliminarProducto(id) {
 }
 
 vaciarCarrito.addEventListener("click", () => {
-  carrito = [];
-  mostrarCarrito();
+  Swal.fire({
+    title: "Estas seguro que quieres vaciar el carrito?",
+    text: "No podras revertirlo!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, estoy seguro!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Listo!", "El carrito esta vacio", "success");
+      carrito = [];
+      mostrarCarrito();
+    }
+  });
 });
+
+const informacionMediosDePago = document.getElementById(
+  "mostrar-medios-de-pago"
+);
 
 function mostrarTotal() {
   const totalCarrito = document.getElementById("total-carrito");
@@ -92,23 +110,43 @@ function mostrarTotal() {
   totalCarrito.innerText = total;
   const botonMediosDePago = document.getElementById("medios-de-pago");
   botonMediosDePago.addEventListener("click", mostrarInfoMediosDePago);
-  function mostrarInfoMediosDePago() {
-    const informacionMediosDePago = document.getElementById(
-      "mostrar-medios-de-pago"
-    );
-    informacionMediosDePago.innerText = `OPCIONES DE PAGO: 
-    \n\nTarjeta de credito - 3 cuotas sin interes de: $${parseInt(total / 3)} 
-    \n\n Tarjeta de credito - 6 cuotas sin interes de: $${parseInt(total / 6)} 
-    \n\n Efectivo en la tienda (10% descuento): $${parseInt(
-      total - total * 0.1
-    )}`;
+  async function mostrarInfoMediosDePago() {
+    const inputOptions = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          "Efectivo (10% off)": "Efectivo (10% off)",
+          "3 cuotas sin interes": "3 cuotas sin interes",
+          "6 cuotas sin interes": "6 cuotas sin interes",
+        });
+      }, 1000); 
+    });
+
+    const { value: medioPago } = await Swal.fire({
+      title: "Seleccionar medio de pago",
+      input: "radio",
+      inputOptions: inputOptions,
+      inputValidator: (value) => {
+        if (!value) {
+          return "Necesitas seleccionar una opcion!";
+        }
+      },
+    });
+
+    if (medioPago) {
+      Swal.fire({ html: `Seleccionaste: ${medioPago}` });
+    }
   }
 }
 
 finalizarCompra.addEventListener("click", () => {
-  alert(
-    "Su compra ha sido exitosa, le enviaremos la factura a su mail lo mas pronto posible, muchas gracias!"
-  );
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title:
+      "Su compra ha sido exitosa, le enviaremos la factura a su mail lo mas pronto posible, muchas gracias!",
+    showConfirmButton: false,
+    timer: 4000,
+  });
 });
 
 mostrarProductos();
