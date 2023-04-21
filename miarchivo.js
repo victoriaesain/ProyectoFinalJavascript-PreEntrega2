@@ -1,14 +1,16 @@
-const productos = [
-  { id: 1, nombre: "Microfono", precio: 6500 },
-  { id: 2, nombre: "Bateria", precio: 120000 },
-  { id: 3, nombre: "Atril", precio: 4300 },
-  { id: 4, nombre: "Guitarra", precio: 20000 },
-  { id: 5, nombre: "Teclado", precio: 30000 },
-  { id: 6, nombre: "Flauta", precio: 6000 },
-  { id: 7, nombre: "Violin", precio: 10000 },
-  { id: 8, nombre: "Trompeta", precio: 9500 },
-  { id: 9, nombre: "Ukelele", precio: 7500 },
-];
+// const productos = [
+//   { id: 1, nombre: "Microfono", precio: 6500 },
+//   { id: 2, nombre: "Bateria", precio: 120000 },
+//   { id: 3, nombre: "Atril", precio: 4300 },
+//   { id: 4, nombre: "Guitarra", precio: 20000 },
+//   { id: 5, nombre: "Teclado", precio: 30000 },
+//   { id: 6, nombre: "Flauta", precio: 6000 },
+//   { id: 7, nombre: "Violin", precio: 10000 },
+//   { id: 8, nombre: "Trompeta", precio: 9500 },
+//   { id: 9, nombre: "Ukelele", precio: 7500 },
+// ];
+
+let productos = [];
 
 const listaProductos = document.getElementById("lista-productos");
 
@@ -118,7 +120,7 @@ function mostrarTotal() {
           "3 cuotas sin interes": "3 cuotas sin interes",
           "6 cuotas sin interes": "6 cuotas sin interes",
         });
-      }, 1000); 
+      }, 1000);
     });
 
     const { value: medioPago } = await Swal.fire({
@@ -138,6 +140,15 @@ function mostrarTotal() {
   }
 }
 
+function promesa() {
+  fetch("./productos.json")
+    .then((data) => data.json())
+    .then((jsonResponse) => {
+      productos = jsonResponse;
+      mostrarProductos();
+    });
+}
+
 finalizarCompra.addEventListener("click", () => {
   Swal.fire({
     position: "top-end",
@@ -149,4 +160,4 @@ finalizarCompra.addEventListener("click", () => {
   });
 });
 
-mostrarProductos();
+promesa();
